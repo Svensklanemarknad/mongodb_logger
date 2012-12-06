@@ -25,7 +25,8 @@ module MongodbLogger
         @db_configuration["collection"] ||= "production_log"
         @db = Mongo::Connection.new(@db_configuration['host'],
                                     @db_configuration['port'],
-                                    :connect => true).db(@db_configuration['database'])
+                                    :connect => true,
+                                    :ssl => @db_configuration['ssl']).db(@db_configuration['database'])
 
         if @db_configuration['username'] && @db_configuration['password']
           @authenticated = @db.authenticate(@db_configuration['username'],
